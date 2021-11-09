@@ -4,30 +4,47 @@ import abi from "../utils/abi.json";
 import { contractAddress } from "../utils/config";
 
 export default function Undelegate() {
-  const [amount, setAmount] = useState("");
   const [account, setAccount] = useState("");
+  const [delegationInfo, setDelegationInfo] = useState(null);
   const web3 = new Web3(window.ethereum);
   const contract = new web3.eth.Contract(abi, contractAddress);
 
   useEffect(() => {
     async function init() {
-      setAccount(await web3.eth.getAccounts());
-      //   const balance = await web3.eth.getBalance(account);
-      console.log("balance : ", account);
+      const _account = await web3.eth.getAccounts();
+      setAccount(_account);
+      if (_account) {
+        const delegate_info = await contract.methods
+          .delegatesOf(_account[0])
+          .call();
+        setDelegationInfo(delegate_info);
+        console.log("info delegate : ", delegate_info);
+      }
     }
     init();
-  }, [amount]);
+  }, delegationInfo);
 
   const undelegation = async () => {
     await contract.methods.undelegateAll().send({
       from: account[0],
+    })
+    .then(async (res) => {
+      if (res.status === true) {
+        setDelegationInfo(null)
+      }
     });
   };
   return (
     <>
       <div className="flex flex-col bg-red-100 w-1/2 mx-10 mx-auto my-10 h-auto p-10 mx-10 border-collapse border border-red-100 rounded-md">
-        <label className="m-10 md:w-auto  mx-auto text-2xl">Your Delegation</label>
-        
+        <label className="m-10 md:w-auto  mx-auto text-2xl">
+          Your Delegation
+        </label>
+        {delegationInfo &&
+          delegationInfo["_delegateAddresses"].map(function (item, i) {
+            console.log(item);
+            return <label>{item} : {delegationInfo['_bips'][i]}</label>;
+          })}
         <button
           className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
           onClick={undelegation}
