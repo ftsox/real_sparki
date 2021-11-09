@@ -18,7 +18,7 @@ export default function Undelegate() {
     init();
   }, [amount]);
 
-  const wrap = async () => {
+  const undelegation = async () => {
     await contract.methods.undelegateAll().send({
       from: account[0],
     });
@@ -26,11 +26,11 @@ export default function Undelegate() {
   return (
     <>
       <div className="flex flex-col bg-red-100 w-1/2 mx-10 mx-auto my-10 h-auto p-10 mx-10 border-collapse border border-red-100 rounded-md">
-        <label className="m-10 md:w-auto  mx-auto text-2xl">Undelegate</label>
+        <label className="m-10 md:w-auto  mx-auto text-2xl">Your Delegation</label>
         
         <button
           className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
-          onClick={wrap}
+          onClick={undelegation}
         >
           Undelegate All
         </button>

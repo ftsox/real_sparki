@@ -42,8 +42,8 @@ export default function Header() {
         <p className="md:text-lg pt-9 p-3 w-24">
           <NavLink to="/delegate">Delegate</NavLink>
         </p>
-        <p className="md:text-lg pt-9 p-3 w-24">
-          <NavLink to="/undelegate">Undelegate</NavLink>
+        <p className="md:text-lg pt-9 p-3 w-27">
+          <NavLink to="/undelegate">Your Delegation</NavLink>
         </p>
       </div>
       <div className="flex justify-between md:text-lg mr-5">
