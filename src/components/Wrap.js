@@ -12,19 +12,31 @@ export default function Wrap() {
 
   useEffect(() => {
     async function init() {
-      setAccount(await web3.eth.getAccounts());
-    //   const balance = await web3.eth.getBalance(account);
-      console.log("balance : ", account)
+      const chainId = await web3.eth.getChainId();
+      if (chainId !== 19) {
+      }
+      const _account = await web3.eth.getAccounts();
+      setAccount(_account);
+      const _balance = await web3.eth.getBalance(_account[0]);
+      setBalance(_balance);
     }
     init();
   }, [amount]);
 
   const wrap = async () => {
-
-    await contract.methods.deposit().send({
-      from: account[0],
-      value: (amount * 10 ** 18)
-    });
+    await contract.methods
+      .deposit()
+      .send({
+        from: account[0],
+        value: amount * 10 ** 18,
+      })
+      .then(async (res) => {
+        if (res.status === true) {
+          const _balance = await web3.eth.getBalance(account[0]);
+          setBalance(_balance);
+        } else {
+        }
+      });
   };
   return (
     <>
@@ -37,10 +49,12 @@ export default function Wrap() {
             name="amount_wrap"
             placeholder="Amount wrap"
             onChange={(e) => setAmount(e.target.value)}
-          >
-          </input>
+          ></input>
           {/* <button className="mr-3">Max</button> */}
         </div>
+        <label className="md:w-auto mx-auto">
+          Available : {balance / 10 ** 18} SGB
+        </label>
         <button
           className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
           onClick={wrap}

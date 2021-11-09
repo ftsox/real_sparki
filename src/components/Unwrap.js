@@ -7,20 +7,36 @@ import BigNumber from "big-number";
 export default function Unwrap() {
   const [account, setAccount] = useState("");
   const [amount, setAmount] = useState("");
+  const [balance, setBalance] = useState("");
+  const [notify, setNotify] = useState("");
   const web3 = new Web3(window.ethereum);
   const contract = new web3.eth.Contract(abi, contractAddress);
   useEffect(() => {
     async function init() {
-      setAccount(await web3.eth.getAccounts());
-    //   const balance = await web3.eth.getBalance(account);
-      console.log("balance : ", account)
+      const _account = await web3.eth.getAccounts();
+      setNotify("")
+      setAccount(_account);
+      if (_account[0]) {
+        const _balance = await contract.methods.balanceOf(_account[0]).call()
+        setBalance(_balance)
+      }
     }
     init();
   }, [amount]);
 
   const unwrap = async () => {
-    await contract.methods.withdraw(BigNumber(amount * 10 **18)).send({
+    await contract.methods.withdraw(BigNumber(amount * 10 ** 18)).send({
       from: account[0],
+    })
+    .then(async (res) => {
+      console.log("temple ---- result of xflobby enter : ", res);
+      if (res.status === true) {
+        const _balance = await contract.methods.balanceOf(account[0]).call()
+        setBalance(_balance)
+      }
+      else {
+        setNotify("Transaction Failed.")
+      }
     });
   };
   return (
@@ -34,14 +50,16 @@ export default function Unwrap() {
             name="amount_wrap"
             placeholder="Amount Unwrap"
             onChange={(e) => setAmount(e.target.value)}
-          />
+          ></input>
         </div>
+        <label className="md:w-auto mx-auto">Available : {balance / 10 ** 18} WSGB</label>
         <button
           className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
           onClick={unwrap}
         >
           Unwrap
         </button>
+        <label className="md:w-auto mx-auto">{notify}</label>
       </div>
     </>
   );

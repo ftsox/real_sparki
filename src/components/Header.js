@@ -17,7 +17,6 @@ export default function Header() {
           connected_wallet[0].length
         );
       setConnectedWallet(address);
-      console.log(connected_wallet[0]);
     }
 
     // const donate = new web3.eth.Contract(abi, contractAddress)

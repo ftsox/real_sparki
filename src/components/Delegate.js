@@ -22,6 +22,7 @@ export default function Delegate() {
   }, [amount]);
 
   const delegate = async () => {
+    console.log("delegation amount : ", Number(BigNumber( amount * delegates / 100)))
     await contract.methods.delegate("0x029290c564Ef921c56a784AA16C97E930dAF7372", BigNumber( amount * delegates / 100) ).send({
       from: account[0],
     });
