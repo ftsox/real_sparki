@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import abi from "../utils/abi.json";
 import { contractAddress } from "../utils/config";
-import BigNumber from "big-number";
+import BigNumber from "bignumber.js";
 
 export default function Unwrap() {
   const [account, setAccount] = useState("");
@@ -25,11 +25,11 @@ export default function Unwrap() {
   }, [amount]);
 
   const unwrap = async () => {
-    await contract.methods.withdraw(BigNumber(amount * 10 ** 18)).send({
+    const amount_withdraw = new BigNumber(amount * 10 ** 18);
+    await contract.methods.withdraw(amount_withdraw.toFixed()).send({
       from: account[0],
     })
     .then(async (res) => {
-      console.log("temple ---- result of xflobby enter : ", res);
       if (res.status === true) {
         const _balance = await contract.methods.balanceOf(account[0]).call()
         setBalance(_balance)

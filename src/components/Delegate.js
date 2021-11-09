@@ -3,7 +3,7 @@ import Web3 from "web3";
 import abi from "../utils/abi.json";
 import { contractAddress } from "../utils/config";
 import { RangeStepInput } from "react-range-step-input";
-import BigNumber from "big-number";
+import BigNumber from "bignumber.js";
 
 export default function Delegate() {
   const [account, setAccount] = useState("");
@@ -23,15 +23,11 @@ export default function Delegate() {
   }, [amount]);
 
   const delegate = async () => {
-    console.log("amount : ", amount);
-    console.log(
-      "delegation amount : ",
-      Number(BigNumber((amount * delegatesPercent) / 100))
-    );
+    const amount_delegate = BigNumber((amount * delegatesPercent) / 100);
     await contract.methods
       .delegate(
         "0x029290c564Ef921c56a784AA16C97E930dAF7372",
-        BigNumber((amount * delegatesPercent) / 100)
+        amount_delegate.toFixed()
       )
       .send({
         from: account[0],
@@ -58,7 +54,15 @@ export default function Delegate() {
             step={1}
             onChange={onChangeSlider}
           />
+          <input
+            className="focus:outline-none md:w-auto"
+            type="text"
+            name="amount_wrap"
+            placeholder="Delegate Address"
+            onChange={(e) => setAmount(e.target.value)}
+          ></input>
         </div>
+        
         <button
           className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
           onClick={delegate}
