@@ -25,14 +25,16 @@ export default function Undelegate() {
   }, delegationInfo);
 
   const undelegation = async () => {
-    await contract.methods.undelegateAll().send({
-      from: account[0],
-    })
-    .then(async (res) => {
-      if (res.status === true) {
-        setDelegationInfo(null)
-      }
-    });
+    await contract.methods
+      .undelegateAll()
+      .send({
+        from: account[0],
+      })
+      .then(async (res) => {
+        if (res.status === true) {
+          setDelegationInfo(null);
+        }
+      });
   };
   return (
     <>
@@ -43,7 +45,11 @@ export default function Undelegate() {
         {delegationInfo &&
           delegationInfo["_delegateAddresses"].map(function (item, i) {
             console.log(item);
-            return <label>{item} : {delegationInfo['_bips'][i]}</label>;
+            return (
+              <label>
+                {item} : {delegationInfo["_bips"][i]}
+              </label>
+            );
           })}
         <button
           className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
