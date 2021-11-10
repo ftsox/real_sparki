@@ -2,29 +2,34 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../logo.svg";
 
+let address;
 export default function Header() {
   const [connectedWallet, setConnectedWallet] = useState(null);
   const connectMetamask = async () => {
     const connected_wallet = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
+    console.log(connected_wallet);
+    const chainId = await window.ethereum.request({ method: "eth_chainId" });
+    console.log(chainId);
     if (connected_wallet) {
-      const address =
+      address =
         connected_wallet[0].substr(0, 7) +
         "..." +
         connected_wallet[0].substr(
           connected_wallet[0].length - 7,
           connected_wallet[0].length
         );
+      if (chainId !== "0x13") {
+        address = address + " | Wrong Network";
+      }
       setConnectedWallet(address);
     }
-
-    // const donate = new web3.eth.Contract(abi, contractAddress)
-    // console.log("ddddd", donate)
-
-    // const accounts = await web3.eth.getAccounts();
-    // const contract = await getContract(web3);
   };
+
+  window.ethereum.on("connect", (info) => {
+    connectMetamask();
+  });
 
   return (
     <div className="flex justify-between bg-red-50 pt-7 text-black">
