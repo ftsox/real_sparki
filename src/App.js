@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Delegate from "./components/Delegate";
 import Undelegate from "./components/Undelegate";
+import Reward from "./components/Reward";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/unwrap" component={Unwrap} />
           <Route path="/delegate" component={Delegate} />
           <Route path="/undelegate" component={Undelegate} />
+          <Route path="/reward" component={Reward} />
         </Switch>
       </Router>
     </div>

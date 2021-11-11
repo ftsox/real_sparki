@@ -9,9 +9,7 @@ export default function Header() {
     const connected_wallet = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    console.log(connected_wallet);
     const chainId = await window.ethereum.request({ method: "eth_chainId" });
-    console.log(chainId);
     if (connected_wallet) {
       address =
         connected_wallet[0].substr(0, 7) +
@@ -49,6 +47,9 @@ export default function Header() {
         </p>
         <p className="md:text-lg pt-9 p-3 w-27">
           <NavLink to="/undelegate">Your Delegation</NavLink>
+        </p>
+        <p className="md:text-lg pt-9 p-3 w-27">
+          <NavLink to="/reward">Claim Reward</NavLink>
         </p>
       </div>
       <div className="flex justify-between md:text-lg mr-5">

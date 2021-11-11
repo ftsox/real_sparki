@@ -18,7 +18,6 @@ export default function Undelegate() {
           .delegatesOf(_account[0])
           .call();
         setDelegationInfo(delegate_info);
-        console.log("info delegate : ", delegate_info);
       }
     }
     init();
@@ -44,7 +43,6 @@ export default function Undelegate() {
         </label>
         {delegationInfo &&
           delegationInfo["_delegateAddresses"].map(function (item, i) {
-            console.log(item);
             return (
               <label>
                 {item} : {delegationInfo["_bips"][i]}

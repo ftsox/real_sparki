@@ -23,7 +23,6 @@ export default function Delegate() {
           .delegatesOf(_account[0])
           .call();
         setDelegationInfo(delegate_info);
-        console.log("sdfghjk", delegate_info);
       }
     }
     init();
