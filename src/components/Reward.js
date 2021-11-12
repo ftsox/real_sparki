@@ -50,10 +50,10 @@ export default function Reward() {
 
   return (
     <>
-      <div className="flex flex-col bg-red-100 w-1/2 mx-10 mx-auto my-10 h-auto p-10 mx-10 border-collapse border border-red-100 rounded-md">
-        <label className="m-10 md:w-auto  mx-auto text-2xl">Claim Reward</label>
+      <div className="flex flex-col w-1/2 h-auto p-10 mx-10 mx-auto my-10 bg-red-100 border border-collapse border-red-100 rounded-md">
+        <label className="m-10 mx-auto text-2xl text-gray-700 md:w-auto">Claim Reward</label>
         <table class="table-fixed py-8 text-center">
-          <thead className="border-b-4 border-double border-green-900 space-y-5">
+          <thead className="space-y-5 border-b-4 border-green-900 border-double">
             <tr>
               <td>No</td>
               <td>Amount</td>
@@ -72,19 +72,19 @@ export default function Reward() {
               : "No Data"}
           </tbody>
         </table>
-        <div className="flex flex-justify px-3">
+        <div className="flex px-3 flex-justify">
           <label className="text-xl">
             {sumRewards.toFixed(2) !== 0.00
               ? "Sum : " + sumRewards.toFixed(2)
               : ""}
           </label>
-          <label className="text-xl items-center">
+          <label className="items-center text-xl">
             {unclaimedReward !== null ? "" : "Succeeded to Claim"}
           </label>
         </div>
 
         <button
-          className="h-9 w-2/3 mx-auto p-1 border-collapse border border-black rounded-3xl bg-red-100"
+          className="w-2/3 p-1 mx-auto mt-10 transition duration-500 ease-in-out bg-red-100 border border-collapse border-black h-9 rounded-3xl hover:bg-red-400 hover:text-white hover:border-opacity-0"
           onClick={claimReward}
         >
           Claim All Rewards

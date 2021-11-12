@@ -11,7 +11,7 @@ import Reward from "./components/Reward";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen font-mono text-gray-500">
       <Router>
       <Header />
         <Switch>

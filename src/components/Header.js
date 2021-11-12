@@ -30,31 +30,31 @@ export default function Header() {
   });
 
   return (
-    <div className="flex justify-between bg-red-50 pt-7 text-black">
+    <div className="flex justify-between font-mono text-center text-gray-700 bg-red-50 pt-7">
       <img src={logo} className="w-24 ml-7" alt="logo" />
       <div className="flex">
-        <p className="md:text-lg pt-9 w-24">
-          <NavLink to="/">Home</NavLink>
+        <p className="p-6 pt-9 md:w-auto">
+          <NavLink className="transition duration-300 ease-in-out hover:text-red-700" to="/">Home</NavLink>
         </p>
-        <p className="md:text-lg pt-9 p-3 w-24">
-          <NavLink to="/wrap">Wrap</NavLink>
+        <p className="p-6 pt-9 md:w-auto">
+          <NavLink className="transition duration-300 ease-in-out hover:text-red-700 " to="/wrap">Wrap</NavLink>
         </p>
-        <p className="md:text-lg pt-9 p-3 w-24">
-          <NavLink to="/unwrap">Unwrap</NavLink>
+        <p className="p-6 pt-9 md:w-auto">
+          <NavLink className="transition duration-300 ease-in-out hover:text-red-700 " to="/unwrap">Unwrap</NavLink>
         </p>
-        <p className="md:text-lg pt-9 p-3 w-24">
-          <NavLink to="/delegate">Delegate</NavLink>
+        <p className="p-6 pt-9 md:w-auto">
+          <NavLink className="transition duration-300 ease-in-out hover:text-red-700 " to="/delegate">Delegate</NavLink>
         </p>
-        <p className="md:text-lg pt-9 p-3 w-27">
-          <NavLink to="/undelegate">Your Delegation</NavLink>
+        <p className="p-6 pt-9 w-27 md:w-auto">
+          <NavLink className="transition duration-300 ease-in-out hover:text-red-700 " to="/undelegate">Undelegate</NavLink>
         </p>
-        <p className="md:text-lg pt-9 p-3 w-27">
-          <NavLink to="/reward">Claim Reward</NavLink>
+        <p className="p-6 pt-9 w-27 md:w-auto">
+          <NavLink className="transition duration-300 ease-in-out hover:text-red-700 " to="/reward">Claim Reward</NavLink>
         </p>
       </div>
-      <div className="flex justify-between md:text-lg mr-5">
+      <div className="flex justify-between mr-5 md:text-lg">
         <button
-          className="m-10 pr-5 pl-5 border-collapse border border-black rounded-3xl"
+          className="pl-5 pr-5 m-10 mt-8 transition duration-500 ease-in-out border border-collapse border-black rounded-3xl hover:bg-red-400 hover:text-white hover:border-opacity-0"
           onClick={connectMetamask}
         >
           {connectedWallet ? connectedWallet : "Connect Metamask"}
